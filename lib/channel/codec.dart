@@ -28,9 +28,9 @@ class _Codec {
     return value.toString().split('.').last;
   }
 
-  static String platformSpecific({
-    @required String android,
-    @required String ios,
+  static dynamic platformSpecific({
+    @required dynamic android,
+    @required dynamic ios,
   }) {
     if (Platform.isAndroid) {
       return android;
@@ -52,7 +52,7 @@ class _JsonCodec {
 
   static GeolocationResultError resultErrorFromJson(Map<String, dynamic> json) {
     final GeolocationResultErrorType type =
-        _mapResultErrorTypeJson(json['type']);
+    _mapResultErrorTypeJson(json['type']);
 
     var additionalInfo;
     switch (type) {
@@ -82,19 +82,19 @@ class _JsonCodec {
         json['error'] != null ? resultErrorFromJson(json['error']) : null,
         json['data'] != null
             ? (json['data'] as List<dynamic>)
-                .map((it) => locationFromJson(it as Map<String, dynamic>))
-                .toList()
+            .map((it) => locationFromJson(it as Map<String, dynamic>))
+            .toList()
             : null,
       );
 
   static Location locationFromJson(Map<String, dynamic> json) => new Location._(
-        _Codec.parseJsonNumber(json['latitude']),
-        _Codec.parseJsonNumber(json['longitude']),
-        _Codec.parseJsonNumber(json['altitude']),
-      );
+    _Codec.parseJsonNumber(json['latitude']),
+    _Codec.parseJsonNumber(json['longitude']),
+    _Codec.parseJsonNumber(json['altitude']),
+  );
 
   static Map<String, dynamic> locationUpdatesRequestToJson(
-          _LocationUpdatesRequest request) =>
+      _LocationUpdatesRequest request) =>
       {
         'id': request.id,
         'strategy': _Codec.encodeEnum(request.strategy),
@@ -106,8 +106,8 @@ class _JsonCodec {
         'displacementFilter': request.displacementFilter,
         'inBackground': request.inBackground,
         'options': _Codec.platformSpecific(
-          android: _Codec.encodeEnum(request.androidOptions),
-          ios: _Codec.encodeEnum(request.accuracy.ios),
+          android: request.androidOptions,
+          ios: request.iosOptions,
         ),
       };
 }

@@ -23,7 +23,7 @@ class LocationOptionsAndroid {
 
   /// Default options for single (one-shot) location request
   static const LocationOptionsAndroid defaultSingle =
-      const LocationOptionsAndroid(
+  const LocationOptionsAndroid(
     interval: 5000,
     fastestInterval: 2500,
     expirationDuration: 30000,
@@ -31,7 +31,7 @@ class LocationOptionsAndroid {
 
   /// Default options for continuous location request
   static const LocationOptionsAndroid defaultContinuous =
-      const LocationOptionsAndroid(
+  const LocationOptionsAndroid(
     interval: 5000,
     fastestInterval: 2500,
   );
@@ -44,4 +44,12 @@ class LocationOptionsAndroid {
 
   /// Always `1` in single location request
   final int numUpdates;
+
+  Map toJson() => {
+    'interval': interval,
+    'fastestInterval': fastestInterval,
+    'expirationTime': expirationTime,
+    'expirationDuration': expirationDuration,
+    'maxWaitTime': maxWaitTime
+  };
 }
